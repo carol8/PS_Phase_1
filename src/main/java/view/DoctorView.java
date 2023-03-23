@@ -1,6 +1,5 @@
 package view;
 
-import model.GrupaSanguina;
 import model.Programare;
 
 import javax.swing.*;
@@ -9,12 +8,12 @@ import javax.swing.table.TableModel;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-public class DoctorView extends JFrame{
+public class DoctorView extends JFrame {
     private JTable tableProgramari;
     private JButton confirmareButton;
     private JPanel mainPanel;
 
-    public DoctorView(){
+    public DoctorView() {
         this.setContentPane(this.mainPanel);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.pack();
@@ -22,7 +21,7 @@ public class DoctorView extends JFrame{
         this.setMinimumSize(this.mainPanel.getMinimumSize());
     }
 
-    public void addConfirmareButtonListener(ActionListener actionListener){
+    public void addConfirmareButtonListener(ActionListener actionListener) {
         confirmareButton.addActionListener(actionListener);
     }
 
@@ -34,7 +33,7 @@ public class DoctorView extends JFrame{
         return tableProgramari.getValueAt(tableProgramari.getSelectedRow(), col);
     }
 
-    public void updateTableProgramari(List<Programare> programareList){
+    public void updateTableProgramari(List<Programare> programareList) {
         String[] header = {"id", "nume donator", "prenume donator", "grupa sanguina", "nume locatie", "data programare", "confirmare"};
         String[][] data = new String[programareList.size()][header.length];
         for (int i = 0; i < programareList.size(); i++) {

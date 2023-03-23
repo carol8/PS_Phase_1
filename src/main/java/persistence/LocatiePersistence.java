@@ -16,18 +16,17 @@ public class LocatiePersistence {
     public static List<Locatie> readLocatii(String conditions) throws SQLException {
         List<Locatie> result = new ArrayList<>();
         String query;
-        if(conditions.length() == 0){
+        if (conditions.length() == 0) {
             query = "SELECT id, nume, adresa, ora_deschidere, ora_inchidere, numar_maxim_recoltari " +
                     "FROM locatii ";
-        }
-        else{
+        } else {
             query = "SELECT id, nume, adresa, ora_deschidere, ora_inchidere, numar_maxim_recoltari " +
                     "FROM locatii " +
                     "WHERE " + conditions;
         }
         PreparedStatement statement = connection.prepareStatement(query);
         ResultSet resultSet = statement.executeQuery();
-        while(resultSet.next()){
+        while (resultSet.next()) {
             result.add(new Locatie(resultSet.getInt("id"),
                     resultSet.getString("nume"),
                     resultSet.getString("adresa"),

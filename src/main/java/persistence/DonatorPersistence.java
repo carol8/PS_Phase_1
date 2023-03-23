@@ -1,7 +1,6 @@
 package persistence;
 
 import connection.ConnectionSingleton;
-import model.Doctor;
 import model.Donator;
 import model.GrupaSanguina;
 
@@ -39,7 +38,7 @@ public class DonatorPersistence {
             statement.execute();
 
             connection.commit();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             connection.rollback();
             e.printStackTrace();
         }
@@ -49,12 +48,11 @@ public class DonatorPersistence {
     public static List<Donator> readDonatori(String conditions) throws SQLException {
         List<Donator> result = new ArrayList<>();
         String query;
-        if(conditions.length() == 0){
+        if (conditions.length() == 0) {
             query = "SELECT u.username, u.sare, u.hash_parola, d.id, d.nume, d.prenume, d.grupa_sanguina " +
                     "FROM utilizatori u " +
                     "JOIN donatori d on u.id_donator = d.id";
-        }
-        else{
+        } else {
             query = "SELECT u.username, u.sare, u.hash_parola, d.id, d.nume, d.prenume, d.grupa_sanguina " +
                     "FROM utilizatori u " +
                     "JOIN donatori d on u.id_donator = d.id " +
@@ -62,7 +60,7 @@ public class DonatorPersistence {
         }
         PreparedStatement statement = connection.prepareStatement(query);
         ResultSet resultSet = statement.executeQuery();
-        while(resultSet.next()){
+        while (resultSet.next()) {
             result.add(new Donator(resultSet.getString("username"),
                     resultSet.getString("sare"),
                     resultSet.getString("hash_parola"),
@@ -78,9 +76,9 @@ public class DonatorPersistence {
         connection.setAutoCommit(false);
         try {
             Donator donatorVechi = readDonatori("username = \"" + usernameDoctorVechi + "\"").get(0);
-            String query = null;
-            PreparedStatement statement = null;
-            if(updatePassword) {
+            String query;
+            PreparedStatement statement;
+            if (updatePassword) {
                 query = "UPDATE utilizatori SET sare = ?, hash_parola = ? WHERE username = ?";
                 statement = connection.prepareStatement(query);
                 statement.setString(1, donatorNou.getSare());

@@ -9,9 +9,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import java.awt.event.ActionListener;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 public class AdminView extends JFrame {
@@ -95,12 +93,20 @@ public class AdminView extends JFrame {
         return locationTable.getValueAt(locationTable.getSelectedRow(), col);
     }
 
-    public String getIdFieldText(){
+    public String getIdFieldText() {
         return idField.getText();
+    }
+
+    public void setIdFieldText(String text) {
+        idField.setText(text);
     }
 
     public String getUsernameFieldText() {
         return usernameField.getText();
+    }
+
+    public void setUsernameFieldText(String text) {
+        usernameField.setText(text);
     }
 
     public String getPasswordFieldText() {
@@ -111,48 +117,36 @@ public class AdminView extends JFrame {
         return numeField.getText();
     }
 
-    public String getPrenumeFieldText() {
-        return prenumeField.getText();
-    }
-
-    public String getCnpFieldText() {
-        return cnpField.getText();
-    }
-
-    public String getEmailFieldText() {
-        return emailField.getText();
-    }
-
-    public int getLocatieIdFieldValue() {
-        return (int) locatieIdSpinner.getValue();
-    }
-
-    public void setIdFieldText(String text){
-        idField.setText(text);
-    }
-
-    public void setUsernameFieldText(String text) {
-        usernameField.setText(text);
-    }
-
-    public void setPasswordFieldText(String text) {
-        passwordField.setText(text);
-    }
-
     public void setNumeFieldText(String text) {
         numeField.setText(text);
+    }
+
+    public String getPrenumeFieldText() {
+        return prenumeField.getText();
     }
 
     public void setPrenumeFieldText(String text) {
         prenumeField.setText(text);
     }
 
+    public String getCnpFieldText() {
+        return cnpField.getText();
+    }
+
     public void setCnpFieldText(String text) {
         cnpField.setText(text);
     }
 
+    public String getEmailFieldText() {
+        return emailField.getText();
+    }
+
     public void setEmailFieldText(String text) {
         emailField.setText(text);
+    }
+
+    public int getLocatieIdFieldValue() {
+        return (int) locatieIdSpinner.getValue();
     }
 
     public void setLocatieIdFieldValue(int value) {
@@ -160,8 +154,8 @@ public class AdminView extends JFrame {
     }
 
     private void updateTable(JTable table, List<Object> objects) {
-        String[] header = null;
-        String[][] data = null;
+        String[] header;
+        String[][] data;
         header = new String[objects.get(0).getClass().getDeclaredFields().length];
         data = new String[objects.size()][objects.get(0).getClass().getDeclaredFields().length];
         for (int i = 0; i < objects.get(0).getClass().getDeclaredFields().length; i++) {

@@ -1,9 +1,9 @@
 package model;
 
-public class Doctor extends User{
-    private Integer id = null;
+public class Doctor extends User {
     private final String nume, prenume, email, cnp;
     private final Locatie locatie;
+    private final Integer id;
 
     public Doctor(String username, String sare, String passwordHash, Integer id, String nume, String prenume, String email, String cnp, Locatie locatie) {
         super(username, sare, passwordHash);

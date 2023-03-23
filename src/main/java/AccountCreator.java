@@ -36,31 +36,28 @@ public class AccountCreator {
                         9. Sterge doctor
                         10. Afiseaza locatii
                         0. Iesire""";
-        do{
+        do {
             System.out.println(options);
-            switch(input.nextInt()){
-                case 1:
+            switch (input.nextInt()) {
+                case 1 -> {
                     System.out.println("Username:");
                     String usernameAdmin = input.next();
                     System.out.println("Parola:");
                     String parolaAdmin = input.next();
-
                     Pair<String, String> saltHashAdmin = passwordEncryptor.encryptPassword(parolaAdmin);
                     AdminPersistence.insertAdmin(new Admin(
                             usernameAdmin,
                             saltHashAdmin.getValue0(),
                             saltHashAdmin.getValue1()
                     ));
-                    break;
-                case 2:
-                    System.out.println(AdminPersistence.readAdmins(""));
-                    break;
-                case 3:
+                }
+                case 2 -> System.out.println(AdminPersistence.readAdmins(""));
+                case 3 -> {
                     System.out.println(AdminPersistence.readAdmins(""));
                     System.out.println("Username-ul adminului care va fi sters:");
                     AdminPersistence.deleteAdmin(input.next());
-                    break;
-                case 4:
+                }
+                case 4 -> {
                     System.out.println("Username:");
                     String usernameDonator = input.next();
                     System.out.println("Parola:");
@@ -71,7 +68,6 @@ public class AccountCreator {
                     String prenumeDonator = input.next();
                     System.out.println("Grupa sanguina:");
                     GrupaSanguina grupaSanguinaDonator = GrupaSanguina.fromInteger(input.nextInt());
-
                     Pair<String, String> saltHashDonator = passwordEncryptor.encryptPassword(parolaDonator);
                     DonatorPersistence.insertDonator(new Donator(
                             usernameDonator,
@@ -82,16 +78,14 @@ public class AccountCreator {
                             prenumeDonator,
                             grupaSanguinaDonator
                     ));
-                    break;
-                case 5:
-                    System.out.println(DonatorPersistence.readDonatori(""));
-                    break;
-                case 6:
+                }
+                case 5 -> System.out.println(DonatorPersistence.readDonatori(""));
+                case 6 -> {
                     System.out.println(DonatorPersistence.readDonatori(""));
                     System.out.println("Id-ul donatorului care va fi sters:");
                     DonatorPersistence.deleteDonator(input.nextInt());
-                    break;
-                case 7:
+                }
+                case 7 -> {
                     System.out.println("Username:");
                     String usernameDoctor = input.next();
                     System.out.println("Parola:");
@@ -107,7 +101,6 @@ public class AccountCreator {
                     System.out.println(LocatiePersistence.readLocatii(""));
                     System.out.println("Id locatie:");
                     int idLocatieDoctor = input.nextInt();
-
                     Pair<String, String> saltHashDoctor = passwordEncryptor.encryptPassword(parolaDoctor);
                     DoctorPersistence.insertDoctor(new Doctor(
                             usernameDoctor,
@@ -124,22 +117,16 @@ public class AccountCreator {
                                     null,
                                     null,
                                     0)));
-                    break;
-                case 8:
-                    System.out.println(DoctorPersistence.readDoctori(""));
-                    break;
-                case 9:
+                }
+                case 8 -> System.out.println(DoctorPersistence.readDoctori(""));
+                case 9 -> {
                     System.out.println(DoctorPersistence.readDoctori(""));
                     System.out.println("Id-ul doctorului care va fi sters:");
                     DoctorPersistence.deleteDoctor(input.nextInt());
-                    break;
-                case 10:
-                    System.out.println(LocatiePersistence.readLocatii(""));
-                    break;
-                case 0:
-                    loop = false;
-                    break;
+                }
+                case 10 -> System.out.println(LocatiePersistence.readLocatii(""));
+                case 0 -> loop = false;
             }
-        }while(loop);
+        } while (loop);
     }
 }

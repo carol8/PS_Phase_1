@@ -6,7 +6,7 @@ public enum GrupaSanguina {
     B,
     AB;
 
-    public static GrupaSanguina fromInteger(int x){
+    public static GrupaSanguina fromInteger(int x) {
         return switch (x) {
             case 1 -> O;
             case 2 -> A;
@@ -16,8 +16,8 @@ public enum GrupaSanguina {
         };
     }
 
-    public int toInteger(){
-        return switch (this){
+    public int toInteger() {
+        return switch (this) {
             case O -> 1;
             case A -> 2;
             case B -> 3;

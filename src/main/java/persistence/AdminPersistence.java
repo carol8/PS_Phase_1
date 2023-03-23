@@ -26,19 +26,18 @@ public class AdminPersistence {
     public static List<Admin> readAdmins(String conditions) throws SQLException {
         List<Admin> result = new ArrayList<>();
         String query;
-        if(conditions.length() == 0){
+        if (conditions.length() == 0) {
             query = "SELECT username, sare, hash_parola " +
                     "FROM utilizatori " +
                     "WHERE is_admin = true";
-        }
-        else{
+        } else {
             query = "SELECT username, sare, hash_parola " +
                     "FROM utilizatori " +
                     "WHERE is_admin = true and " + conditions;
         }
         PreparedStatement statement = connection.prepareStatement(query);
         ResultSet resultSet = statement.executeQuery();
-        while(resultSet.next()){
+        while (resultSet.next()) {
             result.add(new Admin(resultSet.getString("username"),
                     resultSet.getString("sare"),
                     resultSet.getString("hash_parola")));

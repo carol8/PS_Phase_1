@@ -5,12 +5,12 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionSingleton {
+    private static ConnectionSingleton uniqueInstance;
     private final String DRIVER = "com.mysql.cj.jdbc.Driver";
     private final String DBURL = "jdbc:mysql://localhost:3306/banca_sanguina";
     private final String USER = "root";
     private final String PASS = "root";
     private final Connection connection;
-    private static ConnectionSingleton uniqueInstance;
 
     private ConnectionSingleton() throws SQLException {
         try {
@@ -21,8 +21,8 @@ public class ConnectionSingleton {
         connection = DriverManager.getConnection(DBURL, USER, PASS);
     }
 
-    public static ConnectionSingleton instance(){
-        if(uniqueInstance == null){
+    public static ConnectionSingleton instance() {
+        if (uniqueInstance == null) {
             try {
                 uniqueInstance = new ConnectionSingleton();
             } catch (SQLException e) {

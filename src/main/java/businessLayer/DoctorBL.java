@@ -12,9 +12,10 @@ import java.util.List;
 
 public class DoctorBL {
     private static final Connection connection = ConnectionSingleton.instance().getConnection();
+
     public static List<Programare> readProgramariDoctor(Doctor doctor) throws SQLException {
         List<Programare> programareList = new ArrayList<>();
-        String query =  "SELECT p.id, d2.nume, d2.prenume, d2.grupa_sanguina, l.nume, p.data_programare, p.confirmare " +
+        String query = "SELECT p.id, d2.nume, d2.prenume, d2.grupa_sanguina, l.nume, p.data_programare, p.confirmare " +
                 "FROM doctori d " +
                 "JOIN locatii l on d.id_locatie = l.id " +
                 "JOIN programari p on l.id = p.id_locatie " +
@@ -24,7 +25,7 @@ public class DoctorBL {
         PreparedStatement statement = connection.prepareStatement(query);
         statement.setInt(1, doctor.getId());
         ResultSet resultSet = statement.executeQuery();
-        while(resultSet.next()){
+        while (resultSet.next()) {
             programareList.add(new Programare(
                     resultSet.getInt("p.id"),
                     new Donator(

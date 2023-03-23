@@ -1,7 +1,6 @@
 package model;
 
 import org.javatuples.Pair;
-import persistence.AdminPersistence;
 
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
@@ -23,13 +22,13 @@ public class PasswordEncryptor {
         this.factory = factory;
     }
 
-    public Pair<String, String> encryptPassword(String password){
+    public Pair<String, String> encryptPassword(String password) {
         String salt = random.ints(sareLenght, 0, sareAcceptedChars.length())
                 .mapToObj(sareAcceptedChars::charAt)
                 .collect(StringBuilder::new, StringBuilder::append, StringBuilder::append)
                 .toString();
         KeySpec spec = new PBEKeySpec(password.toCharArray(), salt.getBytes(), 65536, 128);
-        byte[] passwordHash = new byte[0];
+        byte[] passwordHash;
         try {
             passwordHash = factory.generateSecret(spec).getEncoded();
         } catch (InvalidKeySpecException e) {
@@ -38,9 +37,9 @@ public class PasswordEncryptor {
         return new Pair<>(salt, new String(passwordHash, StandardCharsets.UTF_8));
     }
 
-    public String encryptPassword(String password, String salt){
+    public String encryptPassword(String password, String salt) {
         KeySpec spec = new PBEKeySpec(password.toCharArray(), salt.getBytes(), 65536, 128);
-        byte[] passwordHash = new byte[0];
+        byte[] passwordHash;
         try {
             passwordHash = factory.generateSecret(spec).getEncoded();
         } catch (InvalidKeySpecException e) {

@@ -5,7 +5,7 @@ import model.GrupaSanguina;
 import javax.swing.*;
 import java.awt.event.ActionListener;
 
-public class InregistrareView extends JFrame{
+public class InregistrareView extends JFrame {
     private JTextField usernameField;
     private JPasswordField passwordField;
     private JPasswordField repeatPasswordField;
@@ -16,7 +16,7 @@ public class InregistrareView extends JFrame{
     private JPanel mainPanel;
     private JLabel eroareInregistrareLabel;
 
-    public InregistrareView(){
+    public InregistrareView() {
         this.setContentPane(this.mainPanel);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.pack();
@@ -24,39 +24,39 @@ public class InregistrareView extends JFrame{
         this.setResizable(false);
     }
 
-    public void addinregistrareButtonListener(ActionListener actionListener){
+    public void addinregistrareButtonListener(ActionListener actionListener) {
         inregistrareButton.addActionListener(actionListener);
     }
 
-    public String getUsernameFieldText(){
+    public String getUsernameFieldText() {
         return usernameField.getText();
     }
 
-    public String getPasswordFieldText(){
+    public String getPasswordFieldText() {
         return String.valueOf(passwordField.getPassword());
     }
 
-    public String getRepeatPasswordFieldText(){
+    public String getRepeatPasswordFieldText() {
         return String.valueOf(repeatPasswordField.getPassword());
     }
 
-    public String getNumeFieldText(){
+    public String getNumeFieldText() {
         return numeField.getText();
     }
 
-    public String getPrenumeFieldText(){
+    public String getPrenumeFieldText() {
         return prenumeField.getText();
     }
 
-    public GrupaSanguina getGrupaSanguinaValue(){
+    public GrupaSanguina getGrupaSanguinaValue() {
         return (GrupaSanguina) grupaSanguinaComboBox.getSelectedItem();
     }
 
-    public void setEroareInregistrareLabelVisible(boolean visible){
+    public void setEroareInregistrareLabelVisible(boolean visible) {
         eroareInregistrareLabel.setVisible(visible);
     }
 
-    public void setEroareInregistrareLabelText(String text){
+    public void setEroareInregistrareLabelText(String text) {
         eroareInregistrareLabel.setText(text);
     }
 

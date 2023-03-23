@@ -7,13 +7,7 @@ import persistence.DonatorPersistence;
 import persistence.UserPersistence;
 import view.*;
 
-import javax.crypto.SecretKeyFactory;
-import javax.crypto.spec.PBEKeySpec;
 import java.awt.event.ActionListener;
-import java.nio.charset.StandardCharsets;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
-import java.security.spec.KeySpec;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -30,7 +24,7 @@ public class LoginPresenter {
     private final ActionListener autentificareActionListener = e -> {
         try {
             List<User> userList = UserPersistence.readUseri("");
-            if(userList.stream().anyMatch(user1 -> user1.getUsername().equals(loginView.getUsernameFieldText()))) {
+            if (userList.stream().anyMatch(user1 -> user1.getUsername().equals(loginView.getUsernameFieldText()))) {
                 User user = userList.stream()
                         .filter(user1 -> user1.getUsername().equals(loginView.getUsernameFieldText()))
                         .toList()
@@ -43,7 +37,7 @@ public class LoginPresenter {
                     List<Donator> donators = DonatorPersistence.readDonatori("username = \"" + user.getUsername() + "\"");
                     if (admins.size() > 0) {
                         AdminView adminView = new AdminView();
-                        AdminPresenter adminPresenter = new AdminPresenter(adminView, admins.get(0), passwordEncryptor);
+                        AdminPresenter adminPresenter = new AdminPresenter(adminView, passwordEncryptor);
                         adminView.setVisible(true);
                         loginView.dispose();
                     } else if (doctors.size() > 0) {
@@ -64,7 +58,7 @@ public class LoginPresenter {
         }
     };
 
-    public LoginPresenter(LoginView loginView, PasswordEncryptor passwordEncryptor){
+    public LoginPresenter(LoginView loginView, PasswordEncryptor passwordEncryptor) {
         this.loginView = loginView;
         this.passwordEncryptor = passwordEncryptor;
         this.loginView.addInregistrareButtonListener(inregistrareActionListener);

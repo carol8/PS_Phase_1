@@ -5,7 +5,6 @@ import model.Donator;
 import model.Locatie;
 import model.Programare;
 
-import javax.xml.transform.Result;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +22,7 @@ public class DonatorBL {
         PreparedStatement statement = connection.prepareStatement(query);
         statement.setInt(1, donator.getId());
         ResultSet resultSet = statement.executeQuery();
-        while(resultSet.next()){
+        while (resultSet.next()) {
             programareList.add(new Programare(
                     resultSet.getInt("p.id"),
                     donator,
@@ -63,7 +62,7 @@ public class DonatorBL {
             statement.execute();
 
             connection.commit();
-        } catch (SQLException e){
+        } catch (SQLException e) {
             connection.rollback();
             e.printStackTrace();
         }

@@ -1,7 +1,8 @@
 package persistence;
 
 import connection.ConnectionSingleton;
-import model.*;
+import model.Doctor;
+import model.Locatie;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -87,9 +88,9 @@ public class DoctorPersistence {
         connection.setAutoCommit(false);
         try {
             Doctor doctorVechi = readDoctori("username = \"" + usernameDoctorVechi + "\"").get(0);
-            String query = null;
-            PreparedStatement statement = null;
-            if(updatePassword) {
+            String query;
+            PreparedStatement statement;
+            if (updatePassword) {
                 query = "UPDATE utilizatori SET sare = ?, hash_parola = ? WHERE username = ?";
                 statement = connection.prepareStatement(query);
                 statement.setString(1, doctorNou.getSare());

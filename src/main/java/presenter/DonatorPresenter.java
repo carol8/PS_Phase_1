@@ -20,32 +20,12 @@ import java.time.LocalTime;
 
 public class DonatorPresenter {
     private final DonatorView donatorView;
-    private Donator donator;
     private final PasswordEncryptor passwordEncryptor;
-
-    public DonatorPresenter(DonatorView donatorView, Donator donator, PasswordEncryptor passwordEncryptor) throws SQLException {
-        this.donatorView = donatorView;
-        this.donator = donator;
-        this.passwordEncryptor = passwordEncryptor;
-
-        this.donatorView.setUsernameFieldText(donator.getUsername());
-        this.donatorView.setNumeFieldText(donator.getNume());
-        this.donatorView.setPrenumeFieldText(donator.getPrenume());
-        this.donatorView.setGrupaSanguinaComboBoxValue(donator.getGrupaSanguina());
-
-        this.donatorView.addActualizeazaDateListener(actualizeazaDateListener);
-        this.donatorView.addStergeContActionListener(stergeContActionListener);
-        this.donatorView.addProgrameazaMaButtonListener(programeazaMaActionListener);
-        this.donatorView.addStergeProgramareaButtonListener(stergeProgramareaActionListener);
-
-        this.donatorView.updateTableLocatii(LocatiePersistence.readLocatii(""));
-        this.donatorView.updateTableProgramari(DonatorBL.readProgramari(donator));
-    }
-
+    private Donator donator;
     private final ActionListener actualizeazaDateListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(JOptionPane.showConfirmDialog(donatorView, "Sigur doresti sa iti modifici datele?") == 0) {
+            if (JOptionPane.showConfirmDialog(donatorView, "Sigur doresti sa iti modifici datele?") == 0) {
                 Pair<String, String> sareHash = passwordEncryptor.encryptPassword(donatorView.getPasswordFieldText());
                 try {
                     Donator donatorNou = new Donator(
@@ -67,11 +47,10 @@ public class DonatorPresenter {
             }
         }
     };
-
     private final ActionListener stergeContActionListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(JOptionPane.showConfirmDialog(donatorView, "Sigur doresti sa iti stergi contul?") == 0){
+            if (JOptionPane.showConfirmDialog(donatorView, "Sigur doresti sa iti stergi contul?") == 0) {
                 try {
                     DonatorPersistence.deleteDonator(donator.getId());
                     donatorView.dispose();
@@ -81,20 +60,19 @@ public class DonatorPresenter {
             }
         }
     };
-
     private final ActionListener programeazaMaActionListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(JOptionPane.showConfirmDialog(donatorView, "Sigur doresti sa te programezi?") == 0){
-                if(donatorView.getTableLocatiiSelectedRow() < 0){
+            if (JOptionPane.showConfirmDialog(donatorView, "Sigur doresti sa te programezi?") == 0) {
+                if (donatorView.getTableLocatiiSelectedRow() < 0) {
                     donatorView.setStatusProgramareLabelColor(new Color(127, 0, 0));
                     donatorView.setStatusProgramareLabelText("Trebuie sa selectezi o locatie pentru a te programa!");
                     donatorView.setStatusProgramareLabelVisible(true);
-                } else if (donatorView.getProgramareDatePickerValue() == null){
+                } else if (donatorView.getProgramareDatePickerValue() == null) {
                     donatorView.setStatusProgramareLabelColor(new Color(127, 0, 0));
                     donatorView.setStatusProgramareLabelText("Trebuie sa selectezi o data pentru a te programa!");
                     donatorView.setStatusProgramareLabelVisible(true);
-                } else if (donatorView.getProgramareDatePickerValue().compareTo(LocalDate.now()) < 0){
+                } else if (donatorView.getProgramareDatePickerValue().compareTo(LocalDate.now()) < 0) {
                     donatorView.setStatusProgramareLabelColor(new Color(127, 0, 0));
                     donatorView.setStatusProgramareLabelText("Nu te poti programa in trecut!");
                     donatorView.setStatusProgramareLabelVisible(true);
@@ -122,16 +100,15 @@ public class DonatorPresenter {
             }
         }
     };
-
     private final ActionListener stergeProgramareaActionListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if(JOptionPane.showConfirmDialog(donatorView, "Sigur doresti sa stergi programarea?") == 0){
-                if(donatorView.getTableProgramariSelectedRow() < 0){
+            if (JOptionPane.showConfirmDialog(donatorView, "Sigur doresti sa stergi programarea?") == 0) {
+                if (donatorView.getTableProgramariSelectedRow() < 0) {
                     donatorView.setStatusProgramareLabelColor(new Color(127, 0, 0));
                     donatorView.setStatusProgramareLabelText("Trebuie sa selectezi o programare pentru a o sterge!");
                     donatorView.setStatusProgramareLabelVisible(true);
-                } else if (LocalDate.parse(donatorView.getTableProgramariValueAt(4).toString()).compareTo(LocalDate.now()) < 0){
+                } else if (LocalDate.parse(donatorView.getTableProgramariValueAt(4).toString()).compareTo(LocalDate.now()) < 0) {
                     donatorView.setStatusProgramareLabelColor(new Color(127, 0, 0));
                     donatorView.setStatusProgramareLabelText("Nu poti sa stergi o programare din trecut!");
                     donatorView.setStatusProgramareLabelVisible(true);
@@ -150,4 +127,23 @@ public class DonatorPresenter {
             }
         }
     };
+
+    public DonatorPresenter(DonatorView donatorView, Donator donator, PasswordEncryptor passwordEncryptor) throws SQLException {
+        this.donatorView = donatorView;
+        this.donator = donator;
+        this.passwordEncryptor = passwordEncryptor;
+
+        this.donatorView.setUsernameFieldText(donator.getUsername());
+        this.donatorView.setNumeFieldText(donator.getNume());
+        this.donatorView.setPrenumeFieldText(donator.getPrenume());
+        this.donatorView.setGrupaSanguinaComboBoxValue(donator.getGrupaSanguina());
+
+        this.donatorView.addActualizeazaDateListener(actualizeazaDateListener);
+        this.donatorView.addStergeContActionListener(stergeContActionListener);
+        this.donatorView.addProgrameazaMaButtonListener(programeazaMaActionListener);
+        this.donatorView.addStergeProgramareaButtonListener(stergeProgramareaActionListener);
+
+        this.donatorView.updateTableLocatii(LocatiePersistence.readLocatii(""));
+        this.donatorView.updateTableProgramari(DonatorBL.readProgramari(donator));
+    }
 }

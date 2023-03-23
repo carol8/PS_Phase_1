@@ -1,10 +1,9 @@
 package model;
 
-public class Donator extends User{
-    private Integer id = null;
+public class Donator extends User {
     private final String nume, prenume;
-
     private final GrupaSanguina grupaSanguina;
+    private final Integer id;
 
     public Donator(String username, String sare, String passwordHash, Integer id, String nume, String prenume, GrupaSanguina grupaSanguina) {
         super(username, sare, passwordHash);

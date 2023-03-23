@@ -1,6 +1,6 @@
 package model;
 
-public class Admin extends User{
+public class Admin extends User {
     public Admin(String username, String sare, String passwordHash) {
         super(username, sare, passwordHash);
     }
