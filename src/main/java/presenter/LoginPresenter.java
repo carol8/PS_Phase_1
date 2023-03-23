@@ -52,6 +52,14 @@ public class LoginPresenter {
                         loginView.dispose();
                     }
                 }
+                else{
+                    loginView.setStatusAutentificareLabelVisible(true);
+                    loginView.setStatusAutentificareLabelText("Autentificare esuata! (Parola incorecta)");
+                }
+            }
+            else{
+                loginView.setStatusAutentificareLabelVisible(true);
+                loginView.setStatusAutentificareLabelText("Autentificare esuata! (Username inexistent)");
             }
         } catch (SQLException ex) {
             throw new RuntimeException(ex);

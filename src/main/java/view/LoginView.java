@@ -9,6 +9,7 @@ public class LoginView extends JFrame {
     private JButton inregistrareButton;
     private JButton autentificareButton;
     private JPanel mainPanel;
+    private JLabel statusAutentificareLabel;
 
     public LoginView() {
         this.setContentPane(this.mainPanel);
@@ -32,5 +33,13 @@ public class LoginView extends JFrame {
 
     public String getPasswordFieldText() {
         return String.valueOf(passwordField.getPassword());
+    }
+
+    public void setStatusAutentificareLabelText(String text){
+        statusAutentificareLabel.setText(text);
+    }
+
+    public void setStatusAutentificareLabelVisible(boolean visible){
+        statusAutentificareLabel.setVisible(visible);
     }
 }
