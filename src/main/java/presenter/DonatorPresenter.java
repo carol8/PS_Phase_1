@@ -8,6 +8,7 @@ import model.Programare;
 import org.javatuples.Pair;
 import persistence.DonatorPersistence;
 import persistence.LocatiePersistence;
+import persistence.ProgramarePersistence;
 import view.DonatorView;
 
 import javax.swing.*;
@@ -87,8 +88,8 @@ public class DonatorPresenter {
                     );
                     Programare programare = new Programare(null, donator, locatie, donatorView.getProgramareDatePickerValue(), false);
                     try {
-                        DonatorBL.creeazaProgramare(programare);
-                        donatorView.updateTableProgramari(DonatorBL.readProgramari(donator));
+                        ProgramarePersistence.creeazaProgramare(programare);
+                        donatorView.updateTableProgramari(DonatorBL.readProgramariCustom(donator));
 
                         donatorView.setStatusProgramareLabelColor(new Color(0, 127, 0));
                         donatorView.setStatusProgramareLabelText("Programare efectuata cu succes!");
@@ -114,8 +115,8 @@ public class DonatorPresenter {
                     donatorView.setStatusProgramareLabelVisible(true);
                 } else {
                     try {
-                        DonatorBL.deleteProgramare(Integer.parseInt(donatorView.getTableProgramariValueAt(0).toString()));
-                        donatorView.updateTableProgramari(DonatorBL.readProgramari(donator));
+                        ProgramarePersistence.deleteProgramare(Integer.parseInt(donatorView.getTableProgramariValueAt(0).toString()));
+                        donatorView.updateTableProgramari(DonatorBL.readProgramariCustom(donator));
 
                         donatorView.setStatusProgramareLabelColor(new Color(0, 127, 0));
                         donatorView.setStatusProgramareLabelText("Programare stearsa cu succes!");
@@ -144,6 +145,6 @@ public class DonatorPresenter {
         this.donatorView.addStergeProgramareaButtonListener(stergeProgramareaActionListener);
 
         this.donatorView.updateTableLocatii(LocatiePersistence.readLocatii(""));
-        this.donatorView.updateTableProgramari(DonatorBL.readProgramari(donator));
+        this.donatorView.updateTableProgramari(DonatorBL.readProgramariCustom(donator));
     }
 }

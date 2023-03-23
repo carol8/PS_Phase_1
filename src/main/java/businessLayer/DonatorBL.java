@@ -12,7 +12,7 @@ import java.util.List;
 public class DonatorBL {
     private static final Connection connection = ConnectionSingleton.instance().getConnection();
 
-    public static List<Programare> readProgramari(Donator donator) throws SQLException {
+    public static List<Programare> readProgramariCustom(Donator donator) throws SQLException {
         List<Programare> programareList = new ArrayList<>(); //p.id, d.nume, d.prenume, d.grupa_sanguina, p.data_programare, l.nume, l.adresa, l.ora_deschidere, l.ora_inchidere, p.confirmare
         String query = "SELECT p.id, p.data_programare, l.nume, l.adresa, l.ora_deschidere, l.ora_inchidere, p.confirmare FROM programari p " +
                 "JOIN locatii l on l.id = p.id_locatie " +
@@ -39,40 +39,5 @@ public class DonatorBL {
             ));
         }
         return programareList;
-    }
-
-    public static void creeazaProgramare(Programare programare) throws SQLException {
-        connection.setAutoCommit(false);
-        try {
-            String query = "INSERT INTO programari VALUE (null, ?, ?, false)";
-            PreparedStatement statement = connection.prepareStatement(query);
-            statement.setInt(1, programare.getLocatie().getId());
-            statement.setDate(2, Date.valueOf(programare.getDataProgramarii()));
-            statement.execute();
-
-            query = "SELECT LAST_INSERT_ID()";
-            statement = connection.prepareStatement(query);
-            ResultSet resultSet = statement.executeQuery();
-            resultSet.next();
-
-            query = "INSERT INTO donatori_programari VALUE (?, ?)";
-            statement = connection.prepareStatement(query);
-            statement.setInt(1, programare.getDonator().getId());
-            statement.setInt(2, resultSet.getInt(1));
-            statement.execute();
-
-            connection.commit();
-        } catch (SQLException e) {
-            connection.rollback();
-            e.printStackTrace();
-        }
-        connection.setAutoCommit(true);
-    }
-
-    public static void deleteProgramare(int programareId) throws SQLException {
-        String query = "DELETE FROM programari WHERE id = ?";
-        PreparedStatement statement = connection.prepareStatement(query);
-        statement.setInt(1, programareId);
-        statement.execute();
     }
 }
